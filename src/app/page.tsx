@@ -113,7 +113,7 @@ export default function Home() {
 			<div className="relative mt-6">
 				{/* Arrow and Text for Weeks Increasing */}
 				<div className="absolute -top-8 left-14 flex items-center space-x-2">
-					<span className="text-sm font-medium">Weeks Increasing</span>
+					<span className="text-sm font-medium">{timeUnit.charAt(0).toUpperCase() + timeUnit.slice(1)} Increasing</span>
 					<ArrowBigRight />
 				</div>
 
