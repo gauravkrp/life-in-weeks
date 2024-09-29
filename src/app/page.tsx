@@ -109,6 +109,12 @@ export default function Home() {
 		// Create an array for year labels, with 10-year increments
 		const yearsArray = Array.from({ length: 10 }, (_, i) => i * 10);
 
+		// Add this new function to determine if it's the last lived unit
+		const isLastLivedUnit = (index: number) => {
+			const lastLivedIndex = timeData.findLastIndex((unit) => unit.lived);
+			return index === lastLivedIndex;
+		};
+
 		return (
 			<div className="relative mt-6">
 				{/* Arrow and Text for Weeks Increasing */}
@@ -142,7 +148,7 @@ export default function Home() {
 								key={index}
 								className={`${timeUnit === "weeks" ? "w-1 h-1 md:w-1.5 md:h-1.5" : "w-1.5 h-1.5 md:w-3 md:h-3"} ${
 									unit.lived ? "bg-green-500" : "bg-gray-300"
-								}`}
+								} ${isLastLivedUnit(index) ? "animate-strong-pulse bg-neutral-900" : ""}`}
 								title={`${timeUnit.charAt(0).toUpperCase() + timeUnit.slice(1)} ${unit.timeUnit}`}
 							/>
 						))}
@@ -214,7 +220,7 @@ export default function Home() {
 
 						{/* Default lifespan text and reveal button */}
 						{!showLifespanInput && (
-							<div className="flex justify-center space-x-1 items-center text-sm text-neutral-500 mt-0.5">
+							<div className="flex justify-center space-x-1 items-center text-sm text-neutral-500 mt-0.5 no-print">
 								<p>Default lifespan is 90 years.</p>
 								<Button
 									// variant="ghost"
@@ -261,7 +267,7 @@ export default function Home() {
 							{showVisualization && (
 								<>
 									<div className="flex justify-center mt-4">
-										<Button onClick={() => setViewMode(viewMode === "grid" ? "graph" : "grid")}>
+										<Button onClick={() => setViewMode(viewMode === "grid" ? "graph" : "grid")} className="no-print">
 											Switch to {viewMode === "grid" ? "Graph View" : "Grid View"}
 										</Button>
 									</div>
