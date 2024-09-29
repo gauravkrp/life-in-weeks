@@ -267,7 +267,7 @@ export default function Home() {
 									</div>
 									{viewMode === "grid" ? renderGridView() : renderGraphView()}
 									<div className="mt-6 flex items-center sticky bottom-6 justify-center">
-										<div className="flex items-center justify-center space-x-1 text-sm text-center text-neutral-600 p-4 bg-white shadow-md rounded-md">
+										<div className="flex items-center justify-center space-x-1 text-sm text-center text-neutral-600 px-4 py-2 border-neutral-200 border bg-white shadow-md rounded-md">
 											<h2 className="text-sm font-medium">
 												Total {timeUnit.charAt(0).toUpperCase() + timeUnit.slice(1)} Lived:{" "}
 												<span className="font-semibold">{timeData.filter((unit) => unit.lived).length}.</span>
