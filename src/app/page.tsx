@@ -8,6 +8,7 @@ import { Input } from "@/components/generic/input";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 import Loader from "@/components/ui/loader";
+import { ArrowBigRight } from "lucide-react";
 
 // Register the scales and components needed for the bar chart
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
@@ -65,8 +66,8 @@ export default function Home() {
 	}, [birthDate]);
 
 	useEffect(() => {
-		if (birthDate && lifespan) {
-			const birth = new Date(birthDate);
+		if (debouncedDOB && lifespan) {
+			const birth = new Date(debouncedDOB);
 			const today = new Date();
 			const ageInDays = Math.floor((today.getTime() - birth.getTime()) / (1000 * 60 * 60 * 24)); // Age in days
 			let totalUnits: number;
@@ -93,34 +94,60 @@ export default function Home() {
 			setTimeData(timeArray);
 			setShowVisualization(true); // Automatically show the visualization when date is valid
 		}
-	}, [birthDate, lifespan, timeUnit]); // Update timeData when birthDate, lifespan, or timeUnit changes
+	}, [debouncedDOB, lifespan, timeUnit]); // Update timeData when birthDate, lifespan, or timeUnit changes
 
 	const renderGridView = () => {
-		// Define the number of columns for weeks using inline CSS style
-		const gridCols =
-			timeUnit === "weeks"
-				? { gridTemplateColumns: "repeat(52, minmax(0, 1fr))" } // 52 columns for weeks
-				: timeUnit === "months"
-				? "grid-cols-12" // 12 columns for months
-				: "grid-cols-10"; // 10 columns for years
+		// Define the grid columns for weeks using an object for inline styles
+		const weeksGridCols = { gridTemplateColumns: "repeat(52, minmax(0, 1fr))" }; // 52 columns for weeks
+
+		// Use string for Tailwind classes for months/years
+		const gridColsClass = timeUnit === "months" ? "grid-cols-12" : "grid-cols-10"; // Tailwind classes for months/years
 
 		// Add a check to ensure timeData has been generated properly
 		if (!timeData.length) return <p>Loading data...</p>;
 
+		// Create an array for year labels, with 10-year increments
+		const yearsArray = Array.from({ length: 10 }, (_, i) => i * 10);
+
 		return (
-			<div
-				className={`grid gap-1 mt-6 ${timeUnit === "weeks" ? "gap-1 md:gap-3" : gridCols}`} // Use Tailwind for months/years, style for weeks
-				style={timeUnit === "weeks" ? gridCols : {}} // Apply inline style only for weeks
-			>
-				{timeData.map((unit, index) => (
+			<div className="relative mt-6">
+				{/* Arrow and Text for Weeks Increasing */}
+				<div className="absolute -top-8 left-14 flex items-center space-x-2">
+					<span className="text-sm font-medium">Weeks Increasing</span>
+					<ArrowBigRight />
+				</div>
+
+				{/* Arrow and Text for Age Increasing */}
+				<div className="absolute -left-10 top-12 flex items-center space-x-2 rotate-90">
+					<span className="text-sm font-medium">Age Increasing</span>
+					<ArrowBigRight />
+				</div>
+
+				{/* Main Grid with Year Labels on Left */}
+				<div className="flex mt-8 ml-8">
+					{/* Left-side year labels */}
+					<div className="flex flex-col justify-between items-end mr-2 text-sm text-gray-700">
+						{yearsArray.map((year, i) => (
+							<span key={i}>{year}</span>
+						))}
+					</div>
+
+					{/* The grid itself */}
 					<div
-						key={index}
-						className={` ${unit.lived ? "bg-green-500" : "bg-gray-300"} ${
-							timeUnit === "weeks" ? "w-1 h-1 md:w-2 md:h-2" : "w-1.5 h-1.5 md:w-3 md:h-3"
-						}`}
-						title={`${timeUnit.charAt(0).toUpperCase() + timeUnit.slice(1)} ${unit.timeUnit}`}
-					/>
-				))}
+						className={`grid gap-1 ${timeUnit === "weeks" ? "" : gridColsClass}`} // Use Tailwind for months/years
+						style={timeUnit === "weeks" ? weeksGridCols : {}} // Apply inline style only for weeks
+					>
+						{timeData.map((unit, index) => (
+							<div
+								key={index}
+								className={`${timeUnit === "weeks" ? "w-1 h-1 md:w-1.5 md:h-1.5" : "w-1.5 h-1.5 md:w-3 md:h-3"} ${
+									unit.lived ? "bg-green-500" : "bg-gray-300"
+								}`}
+								title={`${timeUnit.charAt(0).toUpperCase() + timeUnit.slice(1)} ${unit.timeUnit}`}
+							/>
+						))}
+					</div>
+				</div>
 			</div>
 		);
 	};
