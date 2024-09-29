@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -22,7 +22,10 @@ export const metadata: Metadata = {
 		apple: "/icons/apple-touch-icon.png", // Optional apple touch icon
 	},
 	manifest: "/site.webmanifest", // Path to your manifest file
-	themeColor: "#000000", // Optional theme color
+};
+
+export const viewport: Viewport = {
+	themeColor: "#000000",
 };
 
 export default function RootLayout({
