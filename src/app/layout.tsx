@@ -44,6 +44,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
 	themeColor: "#000000",
 };
+const isProduction = process.env.NODE_ENV === "production";
 
 export default function RootLayout({
 	children,
@@ -55,18 +56,22 @@ export default function RootLayout({
 			<head>
 				<link rel="icon" href="/favicon.ico" /> {/* Path to your favicon */}
 				{/* Google Analytics */}
-				<Script
-					strategy="afterInteractive"
-					src={`https://www.googletagmanager.com/gtag/js?id=G-DFK951FMDJ`} // Replace with your Google Analytics Tracking ID
-				/>
-				<Script id="google-analytics" strategy="afterInteractive">
-					{`
+				{isProduction && (
+					<>
+						<Script
+							strategy="afterInteractive"
+							src={`https://www.googletagmanager.com/gtag/js?id=G-DFK951FMDJ`} // Replace with your Google Analytics Tracking ID
+						/>
+						<Script id="google-analytics" strategy="afterInteractive">
+							{`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-DFK951FMDJ'); // Replace with your Google Analytics Tracking ID
           `}
-				</Script>
+						</Script>
+					</>
+				)}
 			</head>
 
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
