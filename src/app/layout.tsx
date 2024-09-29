@@ -16,6 +16,13 @@ const geistMono = localFont({
 export const metadata: Metadata = {
 	title: "Your Life in Weeks | Count Your Life",
 	description: "Visualize Your Life in Weeks, Months, or Years: A Simple Life Planner",
+	icons: {
+		icon: "/favicon.ico", // Path to your favicon
+		shortcut: "/favicon.ico",
+		apple: "/icons/apple-touch-icon.png", // Optional apple touch icon
+	},
+	manifest: "/site.webmanifest", // Path to your manifest file
+	themeColor: "#000000", // Optional theme color
 };
 
 export default function RootLayout({
