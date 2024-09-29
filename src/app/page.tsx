@@ -221,7 +221,7 @@ export default function Home() {
 						{/* Default lifespan text and reveal button */}
 						{!showLifespanInput ? (
 							<div className="flex justify-center space-x-1 items-center text-sm text-neutral-500 mt-0.5 no-print">
-								<p>Default lifespan is 90 years.</p>
+								<p>Default life expectancy is 90 years.</p>
 								<Button className="text-blue-500" onClick={() => setShowLifespanInput(true)} variant="link">
 									Change
 								</Button>
