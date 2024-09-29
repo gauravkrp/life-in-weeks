@@ -115,19 +115,31 @@ export default function Home() {
 			return index === lastLivedIndex;
 		};
 
+		// Calculate the current week and year for the user based on time lived
+		const lastLivedIndex = timeData.findLastIndex((unit) => unit.lived);
+		const currentWeek = (lastLivedIndex % 52) + 1; // Week within the year
+		const currentYear = Math.floor(lastLivedIndex / 52) + 1; // Year index starts at 0
+
 		return (
-			<div className="relative mt-6">
+			<div className="relative mt-4">
 				{/* Arrow and Text for Weeks Increasing */}
-				<div className="absolute -top-8 left-16 flex items-center space-x-2">
+				<div className="absolute top-6 left-16 flex items-center space-x-2">
 					<span className="text-sm font-medium">{timeUnit.charAt(0).toUpperCase() + timeUnit.slice(1)} Increasing</span>
 					<ArrowBigRight />
 				</div>
 
 				{/* Arrow and Text for Age Increasing */}
-				<div className="absolute -left-10 top-12 flex items-center space-x-2 rotate-90">
+				<div className="absolute -left-10 top-20 flex items-center space-x-2 rotate-90">
 					<span className="text-sm font-medium">Age Increasing</span>
 					<ArrowBigRight />
 				</div>
+
+				{/* Text to show current week and year */}
+				{timeUnit === "weeks" && (
+					<div className="mt-2 text-center text-sm font-semibold text-gray-600">
+						You are in week {currentWeek} of year {currentYear}.
+					</div>
+				)}
 
 				{/* Main Grid with Year Labels on Left */}
 				<div className="flex mt-8 ml-10">
