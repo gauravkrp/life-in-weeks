@@ -202,7 +202,7 @@ export default function Home() {
 					</div>
 
 					{/* Form Section */}
-					<div className="space-y-4 mt-4">
+					<div className="space-y-1 mt-4">
 						<div className="flex items-center max-w-sm mx-auto">
 							<label htmlFor="birthDate" className="flex-1 block text-sm font-medium text-gray-700">
 								Your birth date:
@@ -219,23 +219,15 @@ export default function Home() {
 						</div>
 
 						{/* Default lifespan text and reveal button */}
-						{!showLifespanInput && (
+						{!showLifespanInput ? (
 							<div className="flex justify-center space-x-1 items-center text-sm text-neutral-500 mt-0.5 no-print">
 								<p>Default lifespan is 90 years.</p>
-								<Button
-									// variant="ghost"
-									className="text-blue-500"
-									onClick={() => setShowLifespanInput(true)}
-									variant="link"
-								>
+								<Button className="text-blue-500" onClick={() => setShowLifespanInput(true)} variant="link">
 									Change
 								</Button>
 							</div>
-						)}
-
-						{/* Lifespan input field, only shown when user clicks "Change" */}
-						{showLifespanInput && (
-							<div className="mt-2">
+						) : (
+							<div className="mt-2 max-w-sm flex items-center mx-auto">
 								<label htmlFor="lifespan" className="block text-sm font-medium text-gray-700">
 									Enter your expected lifespan (in years):
 								</label>
@@ -244,16 +236,13 @@ export default function Home() {
 									value={lifespan}
 									onChange={(e) => setLifespan(parseInt(e.target.value))}
 									id="lifespan"
-									className="mt-1 w-full"
+									className="mt-1 w-full max-w-[120px] ml-4"
 									min="1"
 									required
+									onBlur={() => setShowLifespanInput(false)}
 								/>
 							</div>
 						)}
-
-						{/* <Button type="submit" className="w-full mt-4">
-								Submit
-							</Button> */}
 					</div>
 
 					{/* Show SVG Loader when loading */}
