@@ -135,11 +135,13 @@ export default function Home() {
 				</div>
 
 				{/* Text to show current week and year */}
-				{timeUnit === "weeks" && (
-					<div className="mt-2 text-center text-sm font-semibold text-gray-600">
-						You are in week {currentWeek} of year {currentYear}.
-					</div>
-				)}
+				<div className="mt-2 text-center text-sm font-semibold text-gray-600 h-8">
+					{timeUnit === "weeks" && (
+						<>
+							You are in week {currentWeek} of year {currentYear}
+						</>
+					)}
+				</div>
 
 				{/* Main Grid with Year Labels on Left */}
 				<div className="flex mt-8 ml-10">
