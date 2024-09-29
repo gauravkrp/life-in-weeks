@@ -112,7 +112,7 @@ export default function Home() {
 		return (
 			<div className="relative mt-6">
 				{/* Arrow and Text for Weeks Increasing */}
-				<div className="absolute -top-8 left-14 flex items-center space-x-2">
+				<div className="absolute -top-8 left-16 flex items-center space-x-2">
 					<span className="text-sm font-medium">{timeUnit.charAt(0).toUpperCase() + timeUnit.slice(1)} Increasing</span>
 					<ArrowBigRight />
 				</div>
@@ -124,7 +124,7 @@ export default function Home() {
 				</div>
 
 				{/* Main Grid with Year Labels on Left */}
-				<div className="flex mt-8 ml-8">
+				<div className="flex mt-8 ml-10">
 					{/* Left-side year labels */}
 					<div className="flex flex-col justify-between items-end mr-2 text-sm text-gray-700">
 						{yearsArray.map((year, i) => (
