@@ -45,7 +45,15 @@ const Footer: React.FC = () => {
 				<a href="https://chatgpt.com" className="underline" target="_blank" rel="noopener noreferrer">
 					ChatGPT
 				</a>
-				.
+				.{" "}
+				<a
+					href="https://github.com/gauravkrp/life-in-weeks"
+					className="underline"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					Github
+				</a>
 			</p>
 		</footer>
 	);
